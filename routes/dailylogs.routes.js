@@ -8,15 +8,14 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // Post new dailylogs for the user that is currently logged in
 router.post('/dailylogs', isAuthenticated, async (req, res) => {
-    if (!userID) {
+    // Access user information from the request payload
+    const currentUser = req.payload;
+    const userId = currentUser._id;
+    if (!userId) {
         return res.status(400).json({ "Error": "No user ID provided." });
     } else {
         try {
             const { mood, bedTime, energyLevel, mainFocus, activities, goals, notes } = req.body;
-
-            // Access user information from the request payload
-            const currentUser = req.payload;
-            const userId = currentUser._id;
 
             // Create the daily log associated with the current user
             const dailyLog = await DailyLog.create({
@@ -60,6 +59,49 @@ router.get("/dailylogs/:userId", isAuthenticated, async (req, res) => {
             res.sendStatus(500)
         }
     }
-})
+});
+
+router.put("/dailylogs/:dailylogId", (req, res) => {
+    // Object destructuring
+    const { dailylogId } = req.params;
+    const { mood,
+        bedTime,
+        energyLevel,
+        mainFocus,
+        activities,
+        goals,
+        notes } = req.body;
+
+    DailyLog
+        .findByIdAndUpdate(dailylogId, {
+            mood, bedTime,
+            energyLevel,
+            mainFocus,
+            activities,
+            goals,
+            notes
+        }, { new: true })
+        .then(() => {
+            res.json({ message: "updated" });
+        })
+        .catch(() => {
+            res.json({ message: "Failed to Update ." });
+        });
+});
+
+router.delete("/dailylogs/:dailylogId", (req, res) => {
+    const {dailylogId } = req.params;
+  
+    DailyLog
+      .findByIdAndDelete(dailylogId)
+      .then(() => {
+        res.json({ message: "log deleted" });
+      })
+      .catch(() => {
+        res.json({ error: "Failed to delete a log" });
+      });
+  });
+
+
 
 module.exports = router;
