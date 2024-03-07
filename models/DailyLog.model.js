@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const mongoose = require("mongoose");
 
 const dailyLogSchema = new Schema(
     {
@@ -28,7 +28,11 @@ const dailyLogSchema = new Schema(
         notes: {
           type: String,
           required: [true, "At least one word is required"]
+        },
+        user: {
+          type: mongoose.Schema.Types.ObjectId, ref: "User"
         }
+        
       },
       {
         // this second object adds extra properties: `createdAt` and `updatedAt`
