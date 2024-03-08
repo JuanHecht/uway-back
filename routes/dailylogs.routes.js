@@ -61,6 +61,22 @@ router.get("/dailylogs/:userId", isAuthenticated, async (req, res) => {
     }
 });
 
+router.get("/dailylogs/logdetail/:dailylogId", async (req, res) => {
+    const { dailylogId } = req.params;
+    try {
+        const  dailyLog = await DailyLog.findById(dailylogId);
+        
+        if(!dailyLog){
+            return res.status(404).json("The specified daily log does not exist.")
+        }
+
+        res.json(dailyLog);
+    }catch{
+        res.status(400).json("Invalid daily log id")
+    }
+})
+
+
 router.put("/dailylogs/:dailylogId", (req, res) => {
     // Object destructuring
     const { dailylogId } = req.params;
