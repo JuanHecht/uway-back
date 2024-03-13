@@ -1,0 +1,63 @@
+[
+    {
+      "name": "Excercise",
+      "category": "Exercise",
+      "icon": "/icons/excercise.svg"
+    },
+    {
+      "name": "Reading",
+      "category": "Studying",
+      "icon": "/icons/study.svg"
+    },
+    {
+      "name": "Cooking",
+      "category": "Chores/Responsabilities",
+      "icon": "/icons/chores.svg"
+    },
+    {
+      "name": "Work",
+      "category": "Profession",
+      "icon": "/icons/work.svg"
+    },
+    {
+      "name": "TV",
+      "category":  "Entertainment",
+      "icon": "/icons/television.svg"
+    },
+    {
+      "name": "Family",
+      "category": "Socialize",
+      "icon": "/icons/family.svg"
+    },
+    {
+      "name": "Social Media",
+      "category": "Entertainment",
+      "icon": "/icons/socialmedia.svg"
+    },
+    {
+      "name": "Gaming",
+      "category": "Entertainment",
+      "icon": "/icons/gaming.ssvg"
+    },
+    {
+      "name": "Shopping",
+      "category": "Shopping",
+      "icon": "/icons/shopping.svg"
+    },
+    {
+      "name": "Friends",
+      "category": "Socialize",
+      "icon": "/icons/friends.svg"
+    },
+    {
+      "name": "Drawing",
+      "category": "Entertainment",
+      "icon": "/icons/drawing.svg"
+    },
+    {
+      "name": "Music",
+      "category": "Entertainment",
+      "icon": "/icons/music.svg"
+    }
+  ]
+  

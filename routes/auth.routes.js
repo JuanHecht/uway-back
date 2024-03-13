@@ -10,6 +10,13 @@ const jwt = require("jsonwebtoken");
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
+// Import models and json files with info
+const MainFocus = require("../models/MainFocus.model.js")
+const Activities = require("../models/Activities.model.js")
+
+const mainFocusData = require("../defaultData/mainFocus.json");
+const activitiesData = require('../defaultData/activities.json')
+
 // Require necessary (isAuthenticated) middleware in order to control access to specific routes
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
@@ -17,7 +24,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
 // POST /auth/signup  - Creates a new user in the database
-router.post("/signup", (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   const { email, password, name } = req.body;
 
   // Check if email or password or name are provided as empty strings
@@ -68,13 +75,44 @@ router.post("/signup", (req, res, next) => {
       // Create a new object that doesn't expose the password
       const user = { email, name, _id };
 
-      // Create default mainfocuses and activities
+      // Create default mainfocuses
+      console.log("first url"+ mainFocusData[0].iconUrl)
+      const newMainFocuses = mainFocusData.map((focus) => {
+        return (
+          { ...focus, user: _id }
+        )
+      })
+      console.log("new img: " + newMainFocuses[0].iconUrl)
+      MainFocus.create(newMainFocuses)
+        .then((response) => {
+          // Send a json response containing the user object
+        })
+        .catch((error) => {
+          console.log("Error creating main focuses for new user", error);
+          next(error);
+        });
 
-      // Send a json response containing the user object
+        // Create default activities
+      const newActivities = activitiesData.map((activity)=>{
+        return(
+          {...activity, user:  _id}
+        )
+      })
+      Activities.create(newActivities)
+      .then((response)=>{
+      
+      })
+      .catch((error)=>{
+        console.log("Error creating main focuses for new user", error);
+          next(error);
+      })
       res.status(201).json({ user: user });
+      
     })
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
 });
+
+
 
 // POST  /auth/login - Verifies email and password and returns a JWT
 router.post("/login", (req, res, next) => {
