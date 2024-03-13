@@ -68,6 +68,8 @@ router.post("/signup", (req, res, next) => {
       // Create a new object that doesn't expose the password
       const user = { email, name, _id };
 
+      // Create default mainfocuses and activities
+
       // Send a json response containing the user object
       res.status(201).json({ user: user });
     })
