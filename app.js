@@ -16,11 +16,11 @@ const app = express();
 require("./config")(app);
 
 
-/* app.use(
+app.use(
     cors({
         origin: ["https://uway-front.vercel.app", "http://localhost:5173"]
     })
-) */
+)
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
